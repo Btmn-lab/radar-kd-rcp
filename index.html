@@ -497,6 +497,113 @@
       color: var(--muted);
       margin-top: 3px;
     }
+
+    /* Style Panelu ECC Orchestrator (Everything Claude Code / Autonomous Agent Control Plane) */
+    .ecc-panel {
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.98), rgba(30, 27, 75, 0.5));
+      border: 1px solid rgba(139, 92, 246, 0.45);
+      border-radius: 14px;
+      padding: 18px 22px;
+      margin-bottom: 22px;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+    }
+    .ecc-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+    .ecc-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .ecc-title h2 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #ede9fe;
+    }
+    .ecc-badge {
+      background: rgba(139, 92, 246, 0.22);
+      border: 1px solid rgba(139, 92, 246, 0.5);
+      color: #c4b5fd;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .ecc-metrics-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 12px;
+      margin: 16px 0;
+    }
+    .ecc-metric {
+      background: rgba(30, 41, 59, 0.7);
+      border: 1px solid rgba(51, 65, 85, 0.7);
+      border-radius: 10px;
+      padding: 12px 14px;
+    }
+    .ecc-num {
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: #ede9fe;
+    }
+    .ecc-lbl {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #cbd5e1;
+      margin-top: 2px;
+    }
+    .ecc-desc {
+      font-size: 0.72rem;
+      color: #94a3b8;
+      margin-top: 1px;
+    }
+    .ecc-drawer {
+      display: none;
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(139, 92, 246, 0.25);
+    }
+    .ecc-drawer.open {
+      display: block;
+    }
+    .ecc-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    @media (max-width: 900px) {
+      .ecc-grid { grid-template-columns: 1fr; }
+    }
+    .ecc-role-badge {
+      background: rgba(59, 130, 246, 0.2);
+      border: 1px solid rgba(59, 130, 246, 0.4);
+      color: #93c5fd;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      font-weight: 700;
+    }
+    .ecc-task-row, .ecc-eval-row {
+      background: rgba(15, 23, 42, 0.65);
+      border: 1px solid rgba(51, 65, 85, 0.65);
+      border-radius: 8px;
+      padding: 10px 12px;
+      margin-bottom: 8px;
+      font-size: 0.82rem;
+    }
+    .ecc-task-name, .ecc-eval-title {
+      color: #f1f5f9;
+      margin-bottom: 4px;
+    }
+    .ecc-task-meta, .ecc-eval-meta {
+      color: #94a3b8;
+      font-size: 0.76rem;
+    }
   </style>
 </head>
 <body>
@@ -504,7 +611,7 @@
     <header>
       <div class="brand">
         <h1>🛡️ Radar Przetargów: Kontrola Dostępu (KD) & Rejestracja Czasu Pracy (RCP)</h1>
-        <p>Dedykowany profil ofertowy BioSys (www.biosys.pl) • Szpitale • Urzędy • Uczelnie • Przedsiębiorstwa | Aktualizacja: <strong>2026-10-09 17:40</strong></p>
+        <p>Dedykowany profil ofertowy BioSys (www.biosys.pl) • Szpitale • Urzędy • Uczelnie • Przedsiębiorstwa | Aktualizacja: <strong>2026-10-09 18:36</strong></p>
       </div>
       <div class="header-actions">
         <a href="przetargi_kd_rcp_latest.csv" download class="btn btn-primary">📥 Pobierz pełny plik Excel / CSV</a>
@@ -550,7 +657,7 @@
         <div class="learning-title">
           <span class="pulse-indicator"></span>
           <h2>🧠 Autonomiczny Silnik Samouczenia się Agenta (Self-Improving Engine)</h2>
-          <span class="badge-active">Aktywny cykl: #6</span>
+          <span class="badge-active">Aktywny cykl: #7</span>
         </div>
         <div class="learning-toggle-btn" id="learningToggleText">Pokaż szczegóły wiedzy ▼</div>
       </div>
@@ -572,7 +679,7 @@
           <div class="l-desc">Jednostki o podwyższonym priorytecie</div>
         </div>
         <div class="l-metric">
-          <div class="l-num" style="color: #f59e0b;">6</div>
+          <div class="l-num" style="color: #f59e0b;">7</div>
           <div class="l-lbl">🔄 Dobowe cykle uczenia</div>
           <div class="l-desc">Ciągła optymalizacja wag każdego dnia</div>
         </div>
@@ -580,7 +687,7 @@
 
       <div class="learning-log-card">
         <div class="log-title">
-          <span>💡 <strong>Dziennik Samouczenia się Agenta (Learning Log — 2026-10-09 17:40:35):</strong></span>
+          <span>💡 <strong>Dziennik Samouczenia się Agenta (Learning Log — 2026-10-09 18:36:49):</strong></span>
         </div>
         <p class="log-text">Cykl uczenia ukończony. Przeanalizowano 5 ogłoszeń, zatwierdzono 5 ofert KD/RCP. Baza wiedzy wzbogacona o 1 wystąpień cech technicznych. Aktywnych zapytań adaptacyjnych: 51. Zaktualizowano profil kluczowych zamawiających: Komenda Wojewódzka Policji we , Województwo Lubelskie - Lubels, Uniwersytet Warmińsko-Mazurski.</p>
       </div>
@@ -590,14 +697,64 @@
           <div class="l-box">
             <h4>🔑 Top wyuczone frazy technologiczne (Aktywne w wyszukiwaniu):</h4>
             <div class="kw-tags">
-              <span class="l-tag" title="Wystąpienia: 6"><strong>[KD]</strong> system kontroli dostępu<small>100%</small></span><span class="l-tag" title="Wystąpienia: 1"><strong>[KD]</strong> kontrola dostępu<small>85%</small></span><span class="l-tag" title="Wystąpienia: 1"><strong>[KD]</strong> SKD<small>85%</small></span><span class="l-tag" title="Wystąpienia: 1"><strong>[KD]</strong> kontroler przejścia<small>85%</small></span><span class="l-tag" title="Wystąpienia: 1"><strong>[KD]</strong> kontroler drzwiowy<small>85%</small></span><span class="l-tag" title="Wystąpienia: 1"><strong>[KD]</strong> czytnik kart zbliżeniowych<small>85%</small></span><span class="l-tag" title="Wystąpienia: 1"><strong>[KD]</strong> czytnik Mifare<small>85%</small></span><span class="l-tag" title="Wystąpienia: 1"><strong>[KD]</strong> DESFire<small>85%</small></span><span class="l-tag" title="Wystąpienia: 1"><strong>[KD]</strong> karty RFID<small>85%</small></span><span class="l-tag" title="Wystąpienia: 1"><strong>[KD]</strong> tagi NFC<small>85%</small></span><span class="l-tag" title="Wystąpienia: 1"><strong>[KD]</strong> zwora elektromagnetyczna<small>85%</small></span><span class="l-tag" title="Wystąpienia: 1"><strong>[KD]</strong> elektrozaczep<small>85%</small></span><span class="l-tag" title="Wystąpienia: 1"><strong>[KD]</strong> przycisk ewakuacyjny<small>85%</small></span><span class="l-tag" title="Wystąpienia: 1"><strong>[KD]</strong> protokół OSDP<small>85%</small></span><span class="l-tag" title="Wystąpienia: 1"><strong>[KD]</strong> OSDP v2<small>85%</small></span><span class="l-tag" title="Wystąpienia: 1"><strong>[KD]</strong> Wiegand<small>85%</small></span>
+              <span class="l-tag" title="Wystąpienia: 7"><strong>[KD]</strong> system kontroli dostępu<small>100%</small></span><span class="l-tag" title="Wystąpienia: 1"><strong>[KD]</strong> kontrola dostępu<small>85%</small></span><span class="l-tag" title="Wystąpienia: 1"><strong>[KD]</strong> SKD<small>85%</small></span><span class="l-tag" title="Wystąpienia: 1"><strong>[KD]</strong> kontroler przejścia<small>85%</small></span><span class="l-tag" title="Wystąpienia: 1"><strong>[KD]</strong> kontroler drzwiowy<small>85%</small></span><span class="l-tag" title="Wystąpienia: 1"><strong>[KD]</strong> czytnik kart zbliżeniowych<small>85%</small></span><span class="l-tag" title="Wystąpienia: 1"><strong>[KD]</strong> czytnik Mifare<small>85%</small></span><span class="l-tag" title="Wystąpienia: 1"><strong>[KD]</strong> DESFire<small>85%</small></span><span class="l-tag" title="Wystąpienia: 1"><strong>[KD]</strong> karty RFID<small>85%</small></span><span class="l-tag" title="Wystąpienia: 1"><strong>[KD]</strong> tagi NFC<small>85%</small></span><span class="l-tag" title="Wystąpienia: 1"><strong>[KD]</strong> zwora elektromagnetyczna<small>85%</small></span><span class="l-tag" title="Wystąpienia: 1"><strong>[KD]</strong> elektrozaczep<small>85%</small></span><span class="l-tag" title="Wystąpienia: 1"><strong>[KD]</strong> przycisk ewakuacyjny<small>85%</small></span><span class="l-tag" title="Wystąpienia: 1"><strong>[KD]</strong> protokół OSDP<small>85%</small></span><span class="l-tag" title="Wystąpienia: 1"><strong>[KD]</strong> OSDP v2<small>85%</small></span><span class="l-tag" title="Wystąpienia: 1"><strong>[KD]</strong> Wiegand<small>85%</small></span>
             </div>
           </div>
           <div class="l-box">
             <h4>🏛️ Instytucje o najwyższej reputacji zamówień KD & RCP:</h4>
             <div class="buyers-list">
-              <div class="l-buyer-item"><div class="l-buyer-name">🏢 <strong>Komenda Wojewódzka Policji we Wrocławiu</strong> <span class="buyer-badge">Wojsko / Służby</span></div><div class="l-buyer-meta">Ofert KD/RCP: <strong>5</strong> • Priorytet skanowania: <strong style="color:#60a5fa;">2.0x</strong> • Specyfikacje: <span style="color:#94a3b8;">KD/RCP</span></div></div><div class="l-buyer-item"><div class="l-buyer-name">🏢 <strong>Województwo Lubelskie - Lubelskie Centrum Inn</strong> <span class="buyer-badge">Urząd / Samorząd</span></div><div class="l-buyer-meta">Ofert KD/RCP: <strong>5</strong> • Priorytet skanowania: <strong style="color:#60a5fa;">2.0x</strong> • Specyfikacje: <span style="color:#94a3b8;">system kontroli dostępu</span></div></div><div class="l-buyer-item"><div class="l-buyer-name">🏢 <strong>Uniwersytet Warmińsko-Mazurski w Olsztynie</strong> <span class="buyer-badge">Uczelnia / Szkoła</span></div><div class="l-buyer-meta">Ofert KD/RCP: <strong>5</strong> • Priorytet skanowania: <strong style="color:#60a5fa;">2.0x</strong> • Specyfikacje: <span style="color:#94a3b8;">KD/RCP</span></div></div><div class="l-buyer-item"><div class="l-buyer-name">🏢 <strong>Miasto Stołeczne Warszawa Dzielnica Praga-Pół</strong> <span class="buyer-badge">Urząd / Samorząd</span></div><div class="l-buyer-meta">Ofert KD/RCP: <strong>5</strong> • Priorytet skanowania: <strong style="color:#60a5fa;">2.0x</strong> • Specyfikacje: <span style="color:#94a3b8;">KD/RCP</span></div></div><div class="l-buyer-item"><div class="l-buyer-name">🏢 <strong>Urząd Miasta Krasnystaw</strong> <span class="buyer-badge">Urząd / Samorząd</span></div><div class="l-buyer-meta">Ofert KD/RCP: <strong>4</strong> • Priorytet skanowania: <strong style="color:#60a5fa;">1.8x</strong> • Specyfikacje: <span style="color:#94a3b8;">KD/RCP</span></div></div>
+              <div class="l-buyer-item"><div class="l-buyer-name">🏢 <strong>Komenda Wojewódzka Policji we Wrocławiu</strong> <span class="buyer-badge">Wojsko / Służby</span></div><div class="l-buyer-meta">Ofert KD/RCP: <strong>6</strong> • Priorytet skanowania: <strong style="color:#60a5fa;">2.2x</strong> • Specyfikacje: <span style="color:#94a3b8;">KD/RCP</span></div></div><div class="l-buyer-item"><div class="l-buyer-name">🏢 <strong>Województwo Lubelskie - Lubelskie Centrum Inn</strong> <span class="buyer-badge">Urząd / Samorząd</span></div><div class="l-buyer-meta">Ofert KD/RCP: <strong>6</strong> • Priorytet skanowania: <strong style="color:#60a5fa;">2.2x</strong> • Specyfikacje: <span style="color:#94a3b8;">system kontroli dostępu</span></div></div><div class="l-buyer-item"><div class="l-buyer-name">🏢 <strong>Uniwersytet Warmińsko-Mazurski w Olsztynie</strong> <span class="buyer-badge">Uczelnia / Szkoła</span></div><div class="l-buyer-meta">Ofert KD/RCP: <strong>6</strong> • Priorytet skanowania: <strong style="color:#60a5fa;">2.2x</strong> • Specyfikacje: <span style="color:#94a3b8;">KD/RCP</span></div></div><div class="l-buyer-item"><div class="l-buyer-name">🏢 <strong>Miasto Stołeczne Warszawa Dzielnica Praga-Pół</strong> <span class="buyer-badge">Urząd / Samorząd</span></div><div class="l-buyer-meta">Ofert KD/RCP: <strong>6</strong> • Priorytet skanowania: <strong style="color:#60a5fa;">2.2x</strong> • Specyfikacje: <span style="color:#94a3b8;">KD/RCP</span></div></div><div class="l-buyer-item"><div class="l-buyer-name">🏢 <strong>Urząd Miasta Krasnystaw</strong> <span class="buyer-badge">Urząd / Samorząd</span></div><div class="l-buyer-meta">Ofert KD/RCP: <strong>4</strong> • Priorytet skanowania: <strong style="color:#60a5fa;">1.8x</strong> • Specyfikacje: <span style="color:#94a3b8;">KD/RCP</span></div></div>
             </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Panel Kontroli i Nadzoru ECC (Everything Claude Code / Autonomous Agent Control Plane) -->
+    <section class="ecc-panel">
+      <div class="ecc-header" onclick="toggleEccDetails()">
+        <div class="ecc-title">
+          <span style="font-size: 1.3rem;">🛡️</span>
+          <h2>ECC Agent Control Plane (Everything Claude Code)</h2>
+          <span class="ecc-badge">Nadzór Autonomiczny • 4 Role • 5-Axis Quality Gate</span>
+        </div>
+        <div style="font-size: 0.85rem; color: #a78bfa; font-weight: 600;" id="eccToggleText">
+          Pokaż zadania i oceny ▼
+        </div>
+      </div>
+
+      <div class="ecc-metrics-row">
+        <div class="ecc-metric">
+          <div class="ecc-num">11</div>
+          <div class="ecc-lbl">📋 Zaplanowane Zadania (DAG)</div>
+          <div class="ecc-desc">Zarządzane przez ECC Planner</div>
+        </div>
+        <div class="ecc-metric">
+          <div class="ecc-num" style="color: #34d399;">9</div>
+          <div class="ecc-lbl">⚡ Nadzór Pętli (Loop Operator)</div>
+          <div class="ecc-desc">0 awarii kaskadowych • Izolacja błędów</div>
+        </div>
+        <div class="ecc-metric">
+          <div class="ecc-num" style="color: #60a5fa;">11</div>
+          <div class="ecc-lbl">🔍 Oceny 5-Osiowe (Evaluator)</div>
+          <div class="ecc-desc">9 przyjętych • 2 odrzuconych</div>
+        </div>
+        <div class="ecc-metric">
+          <div class="ecc-num" style="color: #fbbf24;">96.0/100</div>
+          <div class="ecc-lbl">⭐ Średnia Jakość Ofert</div>
+          <div class="ecc-desc">Bramka BioSys: KD + RCP bez CCTV/SSWiN</div>
+        </div>
+      </div>
+
+      <div class="ecc-drawer" id="eccDetailsDrawer">
+        <div class="ecc-grid">
+          <div class="l-box">
+            <h4>📋 Ostatnie zadania w rejestrze orkiestratora ECC:</h4>
+            <div class="ecc-task-row">  <div class="ecc-task-name">⚡ <strong>Generowanie Dashboardu i Publikacja (GitHub Pages / E-mail)</strong> <span class="ecc-role-badge">REPORTER</span></div>  <div class="ecc-task-meta"><span style="color:#f59e0b;font-weight:700;">RUNNING</span> • Czas: <strong>0.0s</strong> • Wygenerowano: <strong>0</strong> el.</div></div><div class="ecc-task-row">  <div class="ecc-task-name">✅ <strong>Autonomiczny cykl samouczenia się (Wiedza &amp; Profile)</strong> <span class="ecc-role-badge">LEARNING-ENGINE</span></div>  <div class="ecc-task-meta"><span style="color:#10b981;font-weight:700;">COMPLETED</span> • Czas: <strong>0.1s</strong> • Wygenerowano: <strong>1</strong> el.</div></div><div class="ecc-task-row">  <div class="ecc-task-name">✅ <strong>5-Osiowa Ocena Jakości ECC &amp; BioSys Quality Gate</strong> <span class="ecc-role-badge">AGENT-EVALUATOR</span></div>  <div class="ecc-task-meta"><span style="color:#10b981;font-weight:700;">COMPLETED</span> • Czas: <strong>0.0s</strong> • Wygenerowano: <strong>1</strong> el.</div></div><div class="ecc-task-row">  <div class="ecc-task-name">✅ <strong>Skanowanie platformy EB2B (Administracja rządowa)</strong> <span class="ecc-role-badge">COLLECTOR</span></div>  <div class="ecc-task-meta"><span style="color:#10b981;font-weight:700;">COMPLETED</span> • Czas: <strong>7.7s</strong> • Wygenerowano: <strong>0</strong> el.</div></div><div class="ecc-task-row">  <div class="ecc-task-name">✅ <strong>Skanowanie platformy LoginTrade</strong> <span class="ecc-role-badge">COLLECTOR</span></div>  <div class="ecc-task-meta"><span style="color:#10b981;font-weight:700;">COMPLETED</span> • Czas: <strong>8.9s</strong> • Wygenerowano: <strong>0</strong> el.</div></div><div class="ecc-task-row">  <div class="ecc-task-name">✅ <strong>Skanowanie portalu SmartPZP</strong> <span class="ecc-role-badge">COLLECTOR</span></div>  <div class="ecc-task-meta"><span style="color:#10b981;font-weight:700;">COMPLETED</span> • Czas: <strong>20.1s</strong> • Wygenerowano: <strong>1</strong> el.</div></div>
+          </div>
+          <div class="l-box">
+            <h4>🎯 Ostatnie weryfikacje jakościowe (5-Axis Quality Gate):</h4>
+            <div class="ecc-eval-row">  <div class="ecc-eval-title">🎯 <strong>Określenia potrzeb i możliwości zaprojektowania i </strong></div>  <div class="ecc-eval-meta"><span style="color:#10b981;font-weight:700;">ACCEPTED</span> • Wynik: <strong>96/100</strong> (Dokł: 100, Kompl: 100, Wyk: 90) • <em>Spełnia kryteria jakościowe ECC</em></div></div><div class="ecc-eval-row">  <div class="ecc-eval-title">🎯 <strong>Polska – System kontroli dostępu – Dostawa, montaż</strong></div>  <div class="ecc-eval-meta"><span style="color:#10b981;font-weight:700;">ACCEPTED</span> • Wynik: <strong>96/100</strong> (Dokł: 100, Kompl: 100, Wyk: 90) • <em>Spełnia kryteria jakościowe ECC</em></div></div><div class="ecc-eval-row">  <div class="ecc-eval-title">🎯 <strong>Dostawa i montaż szlabanu parkingowego na terenie </strong></div>  <div class="ecc-eval-meta"><span style="color:#10b981;font-weight:700;">ACCEPTED</span> • Wynik: <strong>96/100</strong> (Dokł: 100, Kompl: 100, Wyk: 90) • <em>Spełnia kryteria jakościowe ECC</em></div></div><div class="ecc-eval-row">  <div class="ecc-eval-title">🎯 <strong>385/2026/PN/DZP „Modernizacja systemu kontroli dos</strong></div>  <div class="ecc-eval-meta"><span style="color:#10b981;font-weight:700;">ACCEPTED</span> • Wynik: <strong>96/100</strong> (Dokł: 100, Kompl: 100, Wyk: 90) • <em>Spełnia kryteria jakościowe ECC</em></div></div><div class="ecc-eval-row">  <div class="ecc-eval-title">🛡️ <strong>Dostawa nośników DVD wraz z kopertami i SDK oprogr</strong></div>  <div class="ecc-eval-meta"><span style="color:#ef4444;font-weight:700;">REJECTED</span> • Wynik: <strong>57/100</strong> (Dokł: 0, Kompl: 100, Wyk: 90) • <em>Niska dokładność dziedzinowa (nie spełnia kryteriów BioSys)</em></div></div>
           </div>
         </div>
       </div>
@@ -674,7 +831,7 @@
   </div>
 
   <script>
-    const TENDERS = [{"tender_id": "PZ-1385492", "source": "Platforma Zakupowa (<130k i PZP)", "threshold_type": "Poniżej 130 tys. zł / Platforma", "category": "DIRECT_KD_RCP", "scope_tags": "KD, Szlabany/Parking", "title": "Dostawa i montaż szlabanu parkingowego na terenie Komisariatu I Policji w Jeleniej Górze.", "buyer_name": "Komenda Wojewódzka Policji we Wrocławiu", "buyer_type": "Wojsko / Służby", "city": "Jeleniej Górze", "province": "", "published_date": "2026-10-05 10:06:00", "deadline": "2026-10-12 08:00", "cpv_codes": "Postępowanie na platformazakupowa.pl", "estimated_value_pln": "Wg zapytania ofertowego / SWZ", "wadium_info": "Sprawdź na karcie postępowania", "requirements_info": "Pełna dokumentacja techniczna (OPZ/SWZ) do pobrania bez logowania na karcie transakcji.", "description_snippet": "Postępowanie ID 1385492: Dostawa i montaż szlabanu parkingowego na terenie Komisariatu I Policji w Jeleniej Górze. — Zamawiający: Komenda Wojewódzka Policji we Wrocławiu.", "ai_summary": "🎯 Bezpośrednie zamówienie na systemy BioSys (KD / RCP / Bramki / Szlabany). Wykryte elementy: automatyka parkingowa i szlabany wjazdowe. Budżet/szacunek: Zapytanie ofertowe / PZP (Platforma Zakupowa).", "url": "https://platformazakupowa.pl/transakcja/1385492", "external_platform_url": "https://platformazakupowa.pl/transakcja/1385492", "relevance_score": 70, "created_at": "2026-10-09 14:23:02", "notified_at": null, "is_new": 1}, {"tender_id": "SPZP-FZA.2510.10.2025/WKR/1/ŁB", "source": "SmartPZP (Portal e-Usług)", "threshold_type": "PZP / Regulamin wewnętrzny", "category": "DIRECT_KD_RCP", "scope_tags": "KD", "title": "Określenia potrzeb i możliwości zaprojektowania i wykonania ogrodzenia, terenu inwestycji CPK wraz z bramami, biurami przepustek, systemami zabezpieczeń i kontroli dostępu oraz Centrum Zarządzania tymi systemami", "buyer_name": "Centralny Port Komunikacyjny Sp. z o.o.", "buyer_type": "Inna jednostka", "city": "", "province": "", "published_date": "11-06-2025", "deadline": "Sprawdź na karcie", "cpv_codes": "Karty / KD / RCP", "estimated_value_pln": "Sprawdź w dokumentacji", "wadium_info": "Nie podano", "requirements_info": "", "description_snippet": "Określenia potrzeb i możliwości zaprojektowania i wykonania ogrodzenia, terenu inwestycji CPK wraz z bramami, biurami przepustek, systemami zabezpieczeń i kontroli dostępu oraz Centrum Zarządzania tymi systemami", "ai_summary": "🎯 Bezpośrednie zamówienie na systemy BioSys (KD / RCP / Bramki / Szlabany). Zakres obejmuje: KD dla jednostki typu Inna jednostka. Budżet/szacunek: Sprawdź na platformie.", "url": "https://portal.smartpzp.pl/cpk/public/postepowanie?postepowanie=80670205", "external_platform_url": "https://portal.smartpzp.pl/cpk/public/postepowanie?postepowanie=80670205", "relevance_score": 60, "created_at": "2026-10-09 17:13:19", "notified_at": null, "is_new": 1}, {"tender_id": "TED-670215-2026", "source": "TED (Dziennik Urzędowy UE)", "threshold_type": "Powyżej progów UE (TED)", "category": "DIRECT_KD_RCP", "scope_tags": "KD", "title": "Polska – System kontroli dostępu – Dostawa, montaż i uruchomienie zdalnego, opartego na technologii NFC dostępu do szaf telekomunikacyjnych Lubelskiej Regionalnej Sieci Szerokopasmowej", "buyer_name": "Województwo Lubelskie - Lubelskie Centrum Innowacji i Technologii", "buyer_type": "Urząd / Samorząd", "city": "Lublin", "province": "", "published_date": "2026-09-29", "deadline": "Sprawdź w ogłoszeniu TED", "cpv_codes": "42961100 51900000 42961100 51900000", "estimated_value_pln": "Powyżej progu UE", "wadium_info": "Sprawdź w dokumentacji TED", "requirements_info": "Postępowanie unijne (JEDZ / kwalifikowany podpis elektroniczny).", "description_snippet": "1. Przedmiotem zamówienia jest dostawa, montaż i uruchomienie zdalnego, opartego na technologii NFC dostępu do szaf telekomunikacyjnych Lubelskiej Regionalnej Sieci Szerokopasmowej. 2. Zdalny dostęp należy zrealizować na szafach produkcji AGMAR typ HB2, WSD3K PLUS z klamką uchylną RS700/710. 3. Wymagany system musi opierać się na technologii NFC oraz obejmować bezbateryjny i bez kablowy system zamykania i otwierania szaf telekomunikacyjnych przy pomocy smartfona, zapewniając jednoczesną kontrolę dostępu osób uprawnionych do korzystania z elektronicznego klucza. 4. Wszystkie elementy zamykające muszą być samowystarczalne energetycznie, nie mogą wymagać użycia baterii/akumulatorów i okablowania, wymagana energia musi być pobierana bezprzewodo", "ai_summary": "🎯 Bezpośrednie zamówienie na systemy BioSys (KD / RCP / Bramki / Szlabany). Zakres obejmuje: KD dla jednostki typu Urząd / Samorząd. Budżet/szacunek: Powyżej progu unijnego (TED).", "url": "https://ted.europa.eu/pl/notice/-/detail/670215-2026", "external_platform_url": "https://ted.europa.eu/pl/notice/-/detail/670215-2026", "relevance_score": 75, "created_at": "2026-10-01 17:33:27", "notified_at": null, "is_new": 0}, {"tender_id": "PZ-1378987", "source": "Platforma Zakupowa (<130k i PZP)", "threshold_type": "Poniżej 130 tys. zł / Platforma", "category": "DIRECT_KD_RCP", "scope_tags": "KD", "title": "385/2026/PN/DZP „Modernizacja systemu kontroli dostępu w uniwersyteckim domu rotacyjnym przy ul. Dybowskiego 7 w Olsztynie”", "buyer_name": "Uniwersytet Warmińsko-Mazurski w Olsztynie", "buyer_type": "Uczelnia / Szkoła", "city": "Olsztyn", "province": "", "published_date": "2026-09-22 13:47:00", "deadline": "2026-10-26 11:00", "cpv_codes": "Postępowanie na platformazakupowa.pl", "estimated_value_pln": "Wg zapytania ofertowego / SWZ", "wadium_info": "Sprawdź na karcie postępowania", "requirements_info": "Pełna dokumentacja techniczna (OPZ/SWZ) do pobrania bez logowania na karcie transakcji.", "description_snippet": "Postępowanie ID 1378987: 385/2026/PN/DZP „Modernizacja systemu kontroli dostępu w uniwersyteckim domu rotacyjnym przy ul. Dybowskiego 7 w Olsztynie” — Zamawiający: Uniwersytet Warmińsko-Mazurski w Olsztynie.", "ai_summary": "🎯 Bezpośrednie zamówienie na systemy BioSys (KD / RCP / Bramki / Szlabany). Zakres obejmuje: KD dla jednostki typu Uczelnia / Szkoła. Budżet/szacunek: Zapytanie ofertowe / PZP (Platforma Zakupowa).", "url": "https://platformazakupowa.pl/transakcja/1378987", "external_platform_url": "https://platformazakupowa.pl/transakcja/1378987", "relevance_score": 70, "created_at": "2026-09-30 12:28:50", "notified_at": null, "is_new": 0}, {"tender_id": "BZP-2026/BZP 00459781/01", "source": "e-Zamówienia (BZP)", "threshold_type": "Powyżej 130 tys. zł (PZP)", "category": "DIRECT_KD_RCP", "scope_tags": "KD, Szlabany/RFID", "title": "„Rozbudowa systemu kontroli dostępu do bramy wjazdowej, furtki wejściowej oraz montaż szlabanu na parking Urzędu Dzielnicy Praga-Północ przy ul. Kłopotowskiego 15 w Warszawie”.", "buyer_name": "Miasto Stołeczne Warszawa Dzielnica Praga-Północ", "buyer_type": "Urząd / Samorząd", "city": "Warszawa", "province": "mazowieckie", "published_date": "2026-09-28", "deadline": "2026-10-14 07:00", "cpv_codes": "45314000-1, 45314300-4, 42961100-1, 45311100-1, 45310000-3", "estimated_value_pln": "Brak w ogłoszeniu", "wadium_info": "Nie wymagane / brak danych", "requirements_info": "Standardowe warunki z SWZ", "description_snippet": "Przedmiotem zamówienia jest rozbudowa systemu kontroli dostępu do bramy wjazdowej, furtki wejściowej oraz montaż szlabanu na parking Urzędu Dzielnicy Praga-Północ przy ul. Kłopotowskiego 15 w Warszawie w ramach zadania pn.: „Przebudowa instalacji ppoż. w budynku Urzędu wraz z podłączeniem do systemu kontroli dostępu”. Wejście do budynku od strony parkingu powinno zostać wyposażone w wideo-domofony oraz czytniki kart dostępu po obu stronach przejść. System umożliwi połączenie osoby dzwoniącej ze stanowiskiem recepcyjnym na parterze, które będzie doposażone w monitor użytkownika. Ze stanowiska możliwe będzie otwarcie drzwi wejściowych od strony parkingu, bramy wjazdowej i furtki wejściowej (za pośrednictwem systemu kontroli dostępu). System wideo-domofonowy (obsługa „pieszego”) składać się b", "ai_summary": "🎯 Bezpośrednie zamówienie na systemy KD / RCP / Zabezpieczenia. Wykryte elementy: czytniki/karty zbliżeniowe (RFID/Mifare), automatyka przejść (szlabany/bramki/kołowroty), elementy wykonawcze przejść (zwory/elektrozaczepy).", "url": "https://ezamowienia.gov.pl/mp-client/search/list/ocds-148610-91b8c37a-22ec-4cc2-a326-f64a5d94e727", "external_platform_url": "https://zamowienia.um.warszawa.pl/pn/umw/demand/322282/notice/public/details", "relevance_score": 65, "created_at": "2026-09-30 12:28:50", "notified_at": null, "is_new": 0}];
+    const TENDERS = [{"tender_id": "PZ-1385492", "source": "Platforma Zakupowa (<130k i PZP)", "threshold_type": "Poniżej 130 tys. zł / Platforma", "category": "DIRECT_KD_RCP", "scope_tags": "KD, Szlabany/Parking", "title": "Dostawa i montaż szlabanu parkingowego na terenie Komisariatu I Policji w Jeleniej Górze.", "buyer_name": "Komenda Wojewódzka Policji we Wrocławiu", "buyer_type": "Wojsko / Służby", "city": "Jeleniej Górze", "province": "", "published_date": "2026-10-05 10:06:00", "deadline": "2026-10-12 08:00", "cpv_codes": "Postępowanie na platformazakupowa.pl", "estimated_value_pln": "Wg zapytania ofertowego / SWZ", "wadium_info": "Sprawdź na karcie postępowania", "requirements_info": "Pełna dokumentacja techniczna (OPZ/SWZ) do pobrania bez logowania na karcie transakcji.", "description_snippet": "Postępowanie ID 1385492: Dostawa i montaż szlabanu parkingowego na terenie Komisariatu I Policji w Jeleniej Górze. — Zamawiający: Komenda Wojewódzka Policji we Wrocławiu.", "ai_summary": "🎯 Bezpośrednie zamówienie na systemy BioSys (KD / RCP / Bramki / Szlabany). Wykryte elementy: automatyka parkingowa i szlabany wjazdowe. Budżet/szacunek: Zapytanie ofertowe / PZP (Platforma Zakupowa).", "url": "https://platformazakupowa.pl/transakcja/1385492", "external_platform_url": "https://platformazakupowa.pl/transakcja/1385492", "relevance_score": 96, "created_at": "2026-10-09 14:23:02", "notified_at": null, "is_new": 1}, {"tender_id": "SPZP-FZA.2510.10.2025/WKR/1/ŁB", "source": "SmartPZP (Portal e-Usług)", "threshold_type": "PZP / Regulamin wewnętrzny", "category": "DIRECT_KD_RCP", "scope_tags": "KD", "title": "Określenia potrzeb i możliwości zaprojektowania i wykonania ogrodzenia, terenu inwestycji CPK wraz z bramami, biurami przepustek, systemami zabezpieczeń i kontroli dostępu oraz Centrum Zarządzania tymi systemami", "buyer_name": "Centralny Port Komunikacyjny Sp. z o.o.", "buyer_type": "Inna jednostka", "city": "", "province": "", "published_date": "11-06-2025", "deadline": "Sprawdź na karcie", "cpv_codes": "Karty / KD / RCP", "estimated_value_pln": "Sprawdź w dokumentacji", "wadium_info": "Nie podano", "requirements_info": "", "description_snippet": "Określenia potrzeb i możliwości zaprojektowania i wykonania ogrodzenia, terenu inwestycji CPK wraz z bramami, biurami przepustek, systemami zabezpieczeń i kontroli dostępu oraz Centrum Zarządzania tymi systemami", "ai_summary": "🎯 Bezpośrednie zamówienie na systemy BioSys (KD / RCP / Bramki / Szlabany). Zakres obejmuje: KD dla jednostki typu Inna jednostka. Budżet/szacunek: Sprawdź na platformie.", "url": "https://portal.smartpzp.pl/cpk/public/postepowanie?postepowanie=80670205", "external_platform_url": "https://portal.smartpzp.pl/cpk/public/postepowanie?postepowanie=80670205", "relevance_score": 96, "created_at": "2026-10-09 17:13:19", "notified_at": null, "is_new": 1}, {"tender_id": "TED-670215-2026", "source": "TED (Dziennik Urzędowy UE)", "threshold_type": "Powyżej progów UE (TED)", "category": "DIRECT_KD_RCP", "scope_tags": "KD", "title": "Polska – System kontroli dostępu – Dostawa, montaż i uruchomienie zdalnego, opartego na technologii NFC dostępu do szaf telekomunikacyjnych Lubelskiej Regionalnej Sieci Szerokopasmowej", "buyer_name": "Województwo Lubelskie - Lubelskie Centrum Innowacji i Technologii", "buyer_type": "Urząd / Samorząd", "city": "Lublin", "province": "", "published_date": "2026-09-29", "deadline": "Sprawdź w ogłoszeniu TED", "cpv_codes": "42961100 51900000 42961100 51900000", "estimated_value_pln": "Powyżej progu UE", "wadium_info": "Sprawdź w dokumentacji TED", "requirements_info": "Postępowanie unijne (JEDZ / kwalifikowany podpis elektroniczny).", "description_snippet": "1. Przedmiotem zamówienia jest dostawa, montaż i uruchomienie zdalnego, opartego na technologii NFC dostępu do szaf telekomunikacyjnych Lubelskiej Regionalnej Sieci Szerokopasmowej. 2. Zdalny dostęp należy zrealizować na szafach produkcji AGMAR typ HB2, WSD3K PLUS z klamką uchylną RS700/710. 3. Wymagany system musi opierać się na technologii NFC oraz obejmować bezbateryjny i bez kablowy system zamykania i otwierania szaf telekomunikacyjnych przy pomocy smartfona, zapewniając jednoczesną kontrolę dostępu osób uprawnionych do korzystania z elektronicznego klucza. 4. Wszystkie elementy zamykające muszą być samowystarczalne energetycznie, nie mogą wymagać użycia baterii/akumulatorów i okablowania, wymagana energia musi być pobierana bezprzewodo", "ai_summary": "🎯 Bezpośrednie zamówienie na systemy BioSys (KD / RCP / Bramki / Szlabany). Zakres obejmuje: KD dla jednostki typu Urząd / Samorząd. Budżet/szacunek: Powyżej progu unijnego (TED).", "url": "https://ted.europa.eu/pl/notice/-/detail/670215-2026", "external_platform_url": "https://ted.europa.eu/pl/notice/-/detail/670215-2026", "relevance_score": 96, "created_at": "2026-10-01 17:33:27", "notified_at": null, "is_new": 0}, {"tender_id": "PZ-1378987", "source": "Platforma Zakupowa (<130k i PZP)", "threshold_type": "Poniżej 130 tys. zł / Platforma", "category": "DIRECT_KD_RCP", "scope_tags": "KD", "title": "385/2026/PN/DZP „Modernizacja systemu kontroli dostępu w uniwersyteckim domu rotacyjnym przy ul. Dybowskiego 7 w Olsztynie”", "buyer_name": "Uniwersytet Warmińsko-Mazurski w Olsztynie", "buyer_type": "Uczelnia / Szkoła", "city": "Olsztyn", "province": "", "published_date": "2026-09-22 13:47:00", "deadline": "2026-10-26 11:00", "cpv_codes": "Postępowanie na platformazakupowa.pl", "estimated_value_pln": "Wg zapytania ofertowego / SWZ", "wadium_info": "Sprawdź na karcie postępowania", "requirements_info": "Pełna dokumentacja techniczna (OPZ/SWZ) do pobrania bez logowania na karcie transakcji.", "description_snippet": "Postępowanie ID 1378987: 385/2026/PN/DZP „Modernizacja systemu kontroli dostępu w uniwersyteckim domu rotacyjnym przy ul. Dybowskiego 7 w Olsztynie” — Zamawiający: Uniwersytet Warmińsko-Mazurski w Olsztynie.", "ai_summary": "🎯 Bezpośrednie zamówienie na systemy BioSys (KD / RCP / Bramki / Szlabany). Zakres obejmuje: KD dla jednostki typu Uczelnia / Szkoła. Budżet/szacunek: Zapytanie ofertowe / PZP (Platforma Zakupowa).", "url": "https://platformazakupowa.pl/transakcja/1378987", "external_platform_url": "https://platformazakupowa.pl/transakcja/1378987", "relevance_score": 96, "created_at": "2026-09-30 12:28:50", "notified_at": null, "is_new": 0}, {"tender_id": "BZP-2026/BZP 00459781/01", "source": "e-Zamówienia (BZP)", "threshold_type": "Powyżej 130 tys. zł (PZP)", "category": "DIRECT_KD_RCP", "scope_tags": "KD, Szlabany/RFID", "title": "„Rozbudowa systemu kontroli dostępu do bramy wjazdowej, furtki wejściowej oraz montaż szlabanu na parking Urzędu Dzielnicy Praga-Północ przy ul. Kłopotowskiego 15 w Warszawie”.", "buyer_name": "Miasto Stołeczne Warszawa Dzielnica Praga-Północ", "buyer_type": "Urząd / Samorząd", "city": "Warszawa", "province": "mazowieckie", "published_date": "2026-09-28", "deadline": "2026-10-14 07:00", "cpv_codes": "45314000-1, 45314300-4, 42961100-1, 45311100-1, 45310000-3", "estimated_value_pln": "Brak w ogłoszeniu", "wadium_info": "Nie wymagane / brak danych", "requirements_info": "Standardowe warunki z SWZ", "description_snippet": "Przedmiotem zamówienia jest rozbudowa systemu kontroli dostępu do bramy wjazdowej, furtki wejściowej oraz montaż szlabanu na parking Urzędu Dzielnicy Praga-Północ przy ul. Kłopotowskiego 15 w Warszawie w ramach zadania pn.: „Przebudowa instalacji ppoż. w budynku Urzędu wraz z podłączeniem do systemu kontroli dostępu”. Wejście do budynku od strony parkingu powinno zostać wyposażone w wideo-domofony oraz czytniki kart dostępu po obu stronach przejść. System umożliwi połączenie osoby dzwoniącej ze stanowiskiem recepcyjnym na parterze, które będzie doposażone w monitor użytkownika. Ze stanowiska możliwe będzie otwarcie drzwi wejściowych od strony parkingu, bramy wjazdowej i furtki wejściowej (za pośrednictwem systemu kontroli dostępu). System wideo-domofonowy (obsługa „pieszego”) składać się b", "ai_summary": "🎯 Bezpośrednie zamówienie na systemy KD / RCP / Zabezpieczenia. Wykryte elementy: czytniki/karty zbliżeniowe (RFID/Mifare), automatyka przejść (szlabany/bramki/kołowroty), elementy wykonawcze przejść (zwory/elektrozaczepy).", "url": "https://ezamowienia.gov.pl/mp-client/search/list/ocds-148610-91b8c37a-22ec-4cc2-a326-f64a5d94e727", "external_platform_url": "https://zamowienia.um.warszawa.pl/pn/umw/demand/322282/notice/public/details", "relevance_score": 65, "created_at": "2026-09-30 12:28:50", "notified_at": null, "is_new": 0}];
 
     function escapeHtml(str) {
       if (!str) return "";
@@ -841,6 +998,18 @@ ${escapeHtml(t.description_snippet || 'Brak opisu tekstowego — szczegóły w z
       } else {
         drawer.classList.add('open');
         text.innerText = 'Zwiń szczegóły ▲';
+      }
+    }
+
+    function toggleEccDetails() {
+      const drawer = document.getElementById('eccDetailsDrawer');
+      const text = document.getElementById('eccToggleText');
+      if (drawer.classList.contains('open')) {
+        drawer.classList.remove('open');
+        text.innerText = 'Pokaż zadania i oceny ▼';
+      } else {
+        drawer.classList.add('open');
+        text.innerText = 'Zwiń zadania i oceny ▲';
       }
     }
 
