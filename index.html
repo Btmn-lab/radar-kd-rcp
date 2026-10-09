@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Radar Przetargów KD & RCP — Jednostki Publiczne w Polsce</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --surface: #1e293b;
+      --surface-hover: #26354d;
+      --border: #334155;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --primary: #3b82f6;
+      --primary-hover: #2563eb;
+      --green: #10b981;
+      --green-bg: rgba(16, 185, 129, 0.14);
+      --amber: #f59e0b;
+      --amber-bg: rgba(245, 158, 11, 0.14);
+      --purple: #8b5cf6;
+      --purple-bg: rgba(139, 92, 246, 0.14);
+      --cyan: #06b6d4;
+      --cyan-bg: rgba(6, 182, 212, 0.14);
+      --rose: #f43f5e;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding: 24px;
+    }
+    .container {
+      max-width: 1440px;
+      margin: 0 auto;
+    }
+    header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 24px;
+    }
+    .brand h1 {
+      font-size: 1.65rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .brand p {
+      color: var(--muted);
+      font-size: 0.92rem;
+      margin-top: 4px;
+    }
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 16px;
+      border-radius: 8px;
+      font-size: 0.86rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.15s ease;
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+    }
+    .btn-primary:hover {
+      background: var(--primary-hover);
+    }
+    .btn-outline {
+      background: var(--surface);
+      color: var(--text);
+      border-color: var(--border);
+    }
+    .btn-outline:hover {
+      background: var(--surface-hover);
+    }
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .kpi-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 20px;
+    }
+    .kpi-card .label {
+      color: var(--muted);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      font-weight: 600;
+    }
+    .kpi-card .value {
+      font-size: 1.9rem;
+      font-weight: 700;
+      margin-top: 6px;
+    }
+    .kpi-card .sub {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+    .filters-bar {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 20px;
+      display: grid;
+      grid-template-columns: 2fr repeat(4, 1fr);
+      gap: 12px;
+    }
+    @media (max-width: 1100px) {
+      .filters-bar {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    .filter-group label {
+      display: block;
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-bottom: 5px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    .filter-group input,
+    .filter-group select {
+      width: 100%;
+      padding: 9px 12px;
+      background: var(--bg);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.88rem;
+      outline: none;
+    }
+    .filter-group input:focus,
+    .filter-group select:focus {
+      border-color: var(--primary);
+    }
+    .quick-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+    .pill {
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      background: var(--surface);
+      color: var(--muted);
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .pill.active, .pill:hover {
+      background: rgba(59, 130, 246, 0.18);
+      color: #60a5fa;
+      border-color: #3b82f6;
+    }
+    .results-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+    .tender-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .tender-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 22px;
+      transition: border-color 0.15s ease;
+    }
+    .tender-card:hover {
+      border-color: #475569;
+    }
+    .tender-card.cat-DIRECT_KD_RCP {
+      border-left: 4px solid var(--green);
+    }
+    .tender-card.cat-COMBINED_SUBCONTRACT {
+      border-left: 4px solid var(--amber);
+    }
+    .tender-card.cat-CYBER_IT_ACCESS {
+      border-left: 4px solid var(--cyan);
+    }
+    .card-top {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .badge-direct { background: var(--green-bg); color: #34d399; }
+    .badge-sub { background: var(--amber-bg); color: #fbbf24; }
+    .badge-cyber { background: var(--cyan-bg); color: #22d3ee; }
+    .badge-scope { background: var(--purple-bg); color: #c084fc; border: 1px solid rgba(139,92,246,0.3); }
+    .badge-buyer { background: rgba(148, 163, 184, 0.14); color: #cbd5e1; }
+    .badge-source { background: rgba(59, 130, 246, 0.12); color: #93c5fd; }
+    .badge-new {
+      background: #ef4444;
+      color: #ffffff;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      box-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
+      animation: pulseNew 2.4s infinite ease-in-out;
+    }
+    @keyframes pulseNew {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.86; transform: scale(1.02); }
+    }
+    .dates-box {
+      text-align: right;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+    .deadline-tag {
+      color: #f87171;
+      font-weight: 600;
+    }
+    .tender-title {
+      font-size: 1.08rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+    .buyer-line {
+      font-size: 0.9rem;
+      color: #cbd5e1;
+      margin-bottom: 10px;
+    }
+    .buyer-line strong {
+      color: #fff;
+    }
+    .ai-box {
+      background: rgba(15, 23, 42, 0.65);
+      border: 1px solid rgba(51, 65, 85, 0.8);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 0.87rem;
+      color: #e2e8f0;
+      margin-bottom: 12px;
+    }
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 10px;
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+    .meta-item strong {
+      color: #cbd5e1;
+    }
+    .card-footer {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(51, 65, 85, 0.5);
+    }
+    .details-toggle {
+      background: none;
+      border: none;
+      color: #60a5fa;
+      font-size: 0.84rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .details-drawer {
+      display: none;
+      margin-top: 12px;
+      padding: 14px;
+      background: #0b1120;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.84rem;
+      color: #cbd5e1;
+      white-space: pre-wrap;
+    }
+    .details-drawer.open {
+      display: block;
+    }
+
+    /* Style Panelu Samouczenia się Agenta (Self-Improving Engine) */
+    .learning-panel {
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(49, 46, 129, 0.28));
+      border: 1px solid rgba(99, 102, 241, 0.35);
+      border-radius: 14px;
+      padding: 16px 20px;
+      margin-bottom: 22px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    }
+    .learning-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+    .learning-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .learning-title h2 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #e0e7ff;
+    }
+    .pulse-indicator {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 10px #10b981;
+      display: inline-block;
+      animation: pulseGreen 2s infinite;
+    }
+    @keyframes pulseGreen {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+    .badge-active {
+      background: rgba(99, 102, 241, 0.2);
+      color: #a5b4fc;
+      border: 1px solid rgba(99, 102, 241, 0.4);
+      border-radius: 6px;
+      padding: 2px 8px;
+      font-size: 0.76rem;
+      font-weight: 600;
+    }
+    .learning-toggle-btn {
+      color: #818cf8;
+      font-size: 0.84rem;
+      font-weight: 600;
+    }
+    .learning-metrics-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+    .l-metric {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(71, 85, 105, 0.4);
+      border-radius: 10px;
+      padding: 10px 14px;
+    }
+    .l-num {
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: #e0e7ff;
+    }
+    .l-lbl {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #cbd5e1;
+      margin-top: 2px;
+    }
+    .l-desc {
+      font-size: 0.72rem;
+      color: #64748b;
+      margin-top: 1px;
+    }
+    .learning-log-card {
+      margin-top: 12px;
+      background: rgba(15, 23, 42, 0.75);
+      border-left: 3px solid #6366f1;
+      border-radius: 6px;
+      padding: 10px 14px;
+      font-size: 0.82rem;
+      color: #cbd5e1;
+    }
+    .log-title {
+      font-weight: 600;
+      color: #a5b4fc;
+      margin-bottom: 4px;
+    }
+    .learning-details-drawer {
+      display: none;
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(99, 102, 241, 0.2);
+    }
+    .learning-details-drawer.open {
+      display: block;
+    }
+    .learning-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    @media (max-width: 900px) {
+      .learning-grid { grid-template-columns: 1fr; }
+    }
+    .l-box h4 {
+      font-size: 0.82rem;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 8px;
+    }
+    .kw-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .l-tag {
+      background: rgba(99, 102, 241, 0.14);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      color: #c7d2fe;
+      border-radius: 6px;
+      padding: 4px 8px;
+      font-size: 0.76rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .l-tag small {
+      color: #34d399;
+      font-weight: 700;
+    }
+    .buyers-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .l-buyer-item {
+      background: rgba(15, 23, 42, 0.5);
+      border: 1px solid rgba(51, 65, 85, 0.6);
+      border-radius: 8px;
+      padding: 8px 10px;
+      font-size: 0.78rem;
+    }
+    .l-buyer-name {
+      color: #f1f5f9;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .buyer-badge {
+      font-size: 0.7rem;
+      background: rgba(148, 163, 184, 0.15);
+      color: #cbd5e1;
+      padding: 1px 6px;
+      border-radius: 4px;
+    }
+    .l-buyer-meta {
+      color: var(--muted);
+      margin-top: 3px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <h1>🛡️ Radar Przetargów: Kontrola Dostępu (KD) & Rejestracja Czasu Pracy (RCP)</h1>
+        <p>Dedykowany profil ofertowy BioSys (www.biosys.pl) • Szpitale • Urzędy • Uczelnie • Przedsiębiorstwa | Aktualizacja: <strong>2026-10-09 15:14</strong></p>
+      </div>
+      <div class="header-actions">
+        <a href="przetargi_kd_rcp_latest.csv" download class="btn btn-primary">📥 Pobierz pełny plik Excel / CSV</a>
+      </div>
+    </header>
+
+    <section class="kpi-grid">
+      <div class="kpi-card" style="border-color: rgba(239, 68, 68, 0.45); background: rgba(239, 68, 68, 0.06);">
+        <div class="label" style="color: #f87171;">🔥 Nowe oferty (dzisiaj)</div>
+        <div class="value" style="color: #ef4444;">1</div>
+        <div class="sub">Wykryte w dzisiejszym skanie</div>
+      </div>
+      <div class="kpi-card">
+        <div class="label">Wszystkie aktywne oferty</div>
+        <div class="value">4</div>
+        <div class="sub">BZP + Platformy &lt;130k + TED UE</div>
+      </div>
+      <div class="kpi-card">
+        <div class="label">🎯 Bezpośrednie KD / RCP</div>
+        <div class="value" style="color: var(--green);">4</div>
+        <div class="sub">Główny przedmiot zamówienia</div>
+      </div>
+      <div class="kpi-card">
+        <div class="label">⏱️ Rejestracja Czasu Pracy (RCP)</div>
+        <div class="value" style="color: #c084fc;">0</div>
+        <div class="sub">Terminale, czytniki i e-Czas</div>
+      </div>
+      <div class="kpi-card">
+        <div class="label">🚪 Kontrola Dostępu (KD / SKD)</div>
+        <div class="value" style="color: #60a5fa;">4</div>
+        <div class="sub">Przejścia, bramki, szlabany, karty RFID</div>
+      </div>
+      <div class="kpi-card" style="border-color: rgba(6, 182, 212, 0.4); background: rgba(6, 182, 212, 0.05);">
+        <div class="label" style="color: #22d3ee;">🏛️ Baza Instytucji</div>
+        <div class="value" style="color: #06b6d4;">4523</div>
+        <div class="sub">1728 szpitali • 2795 urzędów</div>
+      </div>
+    </section>
+
+    <!-- SEKCJA SAMOUCZENIA SIĘ AGENTA (SELF-IMPROVING ENGINE) -->
+    <section class="learning-panel" id="learningPanel">
+      <div class="learning-header" onclick="toggleLearningDetails()">
+        <div class="learning-title">
+          <span class="pulse-indicator"></span>
+          <h2>🧠 Autonomiczny Silnik Samouczenia się Agenta (Self-Improving Engine)</h2>
+          <span class="badge-active">Aktywny cykl: #3</span>
+        </div>
+        <div class="learning-toggle-btn" id="learningToggleText">Pokaż szczegóły wiedzy ▼</div>
+      </div>
+
+      <div class="learning-metrics-row">
+        <div class="l-metric">
+          <div class="l-num">51</div>
+          <div class="l-lbl">📚 Nauczone pojęcia techniczne</div>
+          <div class="l-desc">Mifare, OSDP, terminale, integracje ERP</div>
+        </div>
+        <div class="l-metric">
+          <div class="l-num" style="color: #60a5fa;">51</div>
+          <div class="l-lbl">⚡ Adaptacyjne zapytania</div>
+          <div class="l-desc">Dynamicznie rozszerzane w wyszukiwarce</div>
+        </div>
+        <div class="l-metric">
+          <div class="l-num" style="color: #34d399;">16</div>
+          <div class="l-lbl">🏛️ Sprofilowani zamawiający</div>
+          <div class="l-desc">Jednostki o podwyższonym priorytecie</div>
+        </div>
+        <div class="l-metric">
+          <div class="l-num" style="color: #f59e0b;">3</div>
+          <div class="l-lbl">🔄 Dobowe cykle uczenia</div>
+          <div class="l-desc">Ciągła optymalizacja wag każdego dnia</div>
+        </div>
+      </div>
+
+      <div class="learning-log-card">
+        <div class="log-title">
+          <span>💡 <strong>Dziennik Samouczenia się Agenta (Learning Log — 2026-10-09 15:10:53):</strong></span>
+        </div>
+        <p class="log-text">Cykl uczenia ukończony. Przeanalizowano 24 ogłoszeń, zatwierdzono 24 ofert KD/RCP. Baza wiedzy wzbogacona o 1 wystąpień cech technicznych. Aktywnych zapytań adaptacyjnych: 51. Zaktualizowano profil kluczowych zamawiających: Urząd Miasta Krasnystaw, Komenda Wojewódzka Policji we , Województwo Lubelskie - Lubels.</p>
+      </div>
+
+      <div class="learning-details-drawer" id="learningDetailsDrawer">
+        <div class="learning-grid">
+          <div class="l-box">
+            <h4>🔑 Top wyuczone frazy technologiczne (Aktywne w wyszukiwaniu):</h4>
+            <div class="kw-tags">
+              <span class="l-tag" title="Wystąpienia: 4"><strong>[KD]</strong> system kontroli dostępu<small>100%</small></span><span class="l-tag" title="Wystąpienia: 1"><strong>[KD]</strong> kontrola dostępu<small>85%</small></span><span class="l-tag" title="Wystąpienia: 1"><strong>[KD]</strong> SKD<small>85%</small></span><span class="l-tag" title="Wystąpienia: 1"><strong>[KD]</strong> kontroler przejścia<small>85%</small></span><span class="l-tag" title="Wystąpienia: 1"><strong>[KD]</strong> kontroler drzwiowy<small>85%</small></span><span class="l-tag" title="Wystąpienia: 1"><strong>[KD]</strong> czytnik kart zbliżeniowych<small>85%</small></span><span class="l-tag" title="Wystąpienia: 1"><strong>[KD]</strong> czytnik Mifare<small>85%</small></span><span class="l-tag" title="Wystąpienia: 1"><strong>[KD]</strong> DESFire<small>85%</small></span><span class="l-tag" title="Wystąpienia: 1"><strong>[KD]</strong> karty RFID<small>85%</small></span><span class="l-tag" title="Wystąpienia: 1"><strong>[KD]</strong> tagi NFC<small>85%</small></span><span class="l-tag" title="Wystąpienia: 1"><strong>[KD]</strong> zwora elektromagnetyczna<small>85%</small></span><span class="l-tag" title="Wystąpienia: 1"><strong>[KD]</strong> elektrozaczep<small>85%</small></span><span class="l-tag" title="Wystąpienia: 1"><strong>[KD]</strong> przycisk ewakuacyjny<small>85%</small></span><span class="l-tag" title="Wystąpienia: 1"><strong>[KD]</strong> protokół OSDP<small>85%</small></span><span class="l-tag" title="Wystąpienia: 1"><strong>[KD]</strong> OSDP v2<small>85%</small></span><span class="l-tag" title="Wystąpienia: 1"><strong>[KD]</strong> Wiegand<small>85%</small></span>
+            </div>
+          </div>
+          <div class="l-box">
+            <h4>🏛️ Instytucje o najwyższej reputacji zamówień KD & RCP:</h4>
+            <div class="buyers-list">
+              <div class="l-buyer-item"><div class="l-buyer-name">🏢 <strong>Urząd Miasta Krasnystaw</strong> <span class="buyer-badge">Urząd / Samorząd</span></div><div class="l-buyer-meta">Ofert KD/RCP: <strong>4</strong> • Priorytet skanowania: <strong style="color:#60a5fa;">1.8x</strong> • Specyfikacje: <span style="color:#94a3b8;">KD/RCP</span></div></div><div class="l-buyer-item"><div class="l-buyer-name">🏢 <strong>Komenda Wojewódzka Policji we Wrocławiu</strong> <span class="buyer-badge">Wojsko / Służby</span></div><div class="l-buyer-meta">Ofert KD/RCP: <strong>3</strong> • Priorytet skanowania: <strong style="color:#60a5fa;">1.6x</strong> • Specyfikacje: <span style="color:#94a3b8;">KD/RCP</span></div></div><div class="l-buyer-item"><div class="l-buyer-name">🏢 <strong>Województwo Lubelskie - Lubelskie Centrum Inn</strong> <span class="buyer-badge">Urząd / Samorząd</span></div><div class="l-buyer-meta">Ofert KD/RCP: <strong>3</strong> • Priorytet skanowania: <strong style="color:#60a5fa;">1.6x</strong> • Specyfikacje: <span style="color:#94a3b8;">system kontroli dostępu</span></div></div><div class="l-buyer-item"><div class="l-buyer-name">🏢 <strong>Uniwersytet Warmińsko-Mazurski w Olsztynie</strong> <span class="buyer-badge">Uczelnia / Szkoła</span></div><div class="l-buyer-meta">Ofert KD/RCP: <strong>3</strong> • Priorytet skanowania: <strong style="color:#60a5fa;">1.6x</strong> • Specyfikacje: <span style="color:#94a3b8;">KD/RCP</span></div></div><div class="l-buyer-item"><div class="l-buyer-name">🏢 <strong>Miasto Stołeczne Warszawa Dzielnica Praga-Pół</strong> <span class="buyer-badge">Urząd / Samorząd</span></div><div class="l-buyer-meta">Ofert KD/RCP: <strong>3</strong> • Priorytet skanowania: <strong style="color:#60a5fa;">1.6x</strong> • Specyfikacje: <span style="color:#94a3b8;">KD/RCP</span></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="quick-pills">
+      <button class="pill active" onclick="setQuickFilter('ALL', this)">Wszystkie (4)</button>
+      <button class="pill" onclick="setQuickFilter('NEW', this)" style="border-color: rgba(239,68,68,0.55); color: #f87171; font-weight: 700;">🔥 Tylko NOWE (1)</button>
+      <button class="pill" onclick="setQuickFilter('RCP', this)">⏱️ Rejestracja Czasu Pracy (RCP)</button>
+      <button class="pill" onclick="setQuickFilter('KD', this)">🚪 Kontrola Dostępu (KD)</button>
+      <button class="pill" onclick="setQuickFilter('GATES', this)">🚧 Bramki, Kołowroty & Szlabany</button>
+      <button class="pill" onclick="setQuickFilter('HOSPITAL', this)">🏥 Szpitale i Medycyna</button>
+      <button class="pill" onclick="setQuickFilter('OFFICE', this)">🏛️ Urzędy i Samorządy</button>
+      <button class="pill" onclick="setQuickFilter('SUB130', this)">💼 Platforma Zakupowa / Poniżej 130k</button>
+    </div>
+
+    <section class="filters-bar">
+      <div class="filter-group">
+        <label>Szukaj w tytule, opisie, zamawiającym lub mieście</label>
+        <input type="text" id="searchInput" placeholder="np. szpital, czytnik, Mifare, szlaban, bramka, ewidencja..." oninput="renderTenders()" />
+      </div>
+      <div class="filter-group">
+        <label>Kategoria zamówienia</label>
+        <select id="categoryFilter" onchange="renderTenders()">
+          <option value="">Wszystkie kategorie</option>
+          <option value="DIRECT_KD_RCP">🎯 Bezpośrednie zamówienie KD / RCP (BioSys)</option>
+          <option value="COMBINED_SUBCONTRACT">🏗️ Inwestycja łączona / Podwykonawstwo</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label>Zakres techniczny (Profil BioSys)</label>
+        <select id="scopeFilter" onchange="renderTenders()">
+          <option value="">Wszystkie zakresy BioSys</option>
+          <option value="RCP">Rejestracja Czasu Pracy (RCP)</option>
+          <option value="KD">Kontrola Dostępu (KD / SKD)</option>
+          <option value="Bramki/Kołowroty">Bramki obrotowe / Kołowroty</option>
+          <option value="Szlabany/Parking">Szlabany / Automatyka parkingowa</option>
+          <option value="Depozytory">Elektroniczne depozytory kluczy</option>
+          <option value="Karty/RFID">Karty zbliżeniowe (Mifare / RFID)</option>
+          <option value="Integracje HR/ERP">Integracje Kadrowo-Płacowe (K-P)</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label>Typ jednostki publicznej</label>
+        <select id="buyerTypeFilter" onchange="renderTenders()">
+          <option value="">Wszystkie jednostki</option>
+          <option value="Szpital / Medycyna">🏥 Szpital / Medycyna</option>
+          <option value="Urząd / Samorząd">🏛️ Urząd / Samorząd</option>
+          <option value="Uczelnia / Szkoła">🎓 Uczelnia / Szkoła</option>
+          <option value="Wojsko / Służby">🪖 Wojsko / Służby</option>
+          <option value="Sąd / Prokuratura">⚖️ Sąd / Prokuratura</option>
+          <option value="Wodociągi / Komunalne">💧 Wodociągi / Komunalne</option>
+          <option value="Kultura / Sport / Lasy">🎭 Kultura / Sport / Lasy</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label>Źródło / Próg</label>
+        <select id="sourceFilter" onchange="renderTenders()">
+          <option value="">Wszystkie źródła</option>
+          <option value="e-Zamówienia">e-Zamówienia BZP (&gt;130 tys. zł)</option>
+          <option value="Platforma Zakupowa">Platforma Zakupowa (&lt;130 tys. zł i PZP)</option>
+          <option value="Baza Konkurencyjności">Baza Konkurencyjności (Granty UE)</option>
+          <option value="TED">TED (Powyżej progów UE)</option>
+        </select>
+      </div>
+    </section>
+
+    <div class="results-info">
+      <span id="resultsCount">Wyświetlanie 4 postępowań</span>
+      <span>Sortowanie: Najnowsze i najbardziej dopasowane</span>
+    </div>
+
+    <div id="tenderList" class="tender-list"></div>
+  </div>
+
+  <script>
+    const TENDERS = [{"tender_id": "PZ-1385492", "source": "Platforma Zakupowa (<130k i PZP)", "threshold_type": "Poniżej 130 tys. zł / Platforma", "category": "DIRECT_KD_RCP", "scope_tags": "KD, Szlabany/Parking", "title": "Dostawa i montaż szlabanu parkingowego na terenie Komisariatu I Policji w Jeleniej Górze.", "buyer_name": "Komenda Wojewódzka Policji we Wrocławiu", "buyer_type": "Wojsko / Służby", "city": "Jeleniej Górze", "province": "", "published_date": "2026-10-05 10:06:00", "deadline": "2026-10-12 08:00", "cpv_codes": "Postępowanie na platformazakupowa.pl", "estimated_value_pln": "Wg zapytania ofertowego / SWZ", "wadium_info": "Sprawdź na karcie postępowania", "requirements_info": "Pełna dokumentacja techniczna (OPZ/SWZ) do pobrania bez logowania na karcie transakcji.", "description_snippet": "Postępowanie ID 1385492: Dostawa i montaż szlabanu parkingowego na terenie Komisariatu I Policji w Jeleniej Górze. — Zamawiający: Komenda Wojewódzka Policji we Wrocławiu.", "ai_summary": "🎯 Bezpośrednie zamówienie na systemy BioSys (KD / RCP / Bramki / Szlabany). Wykryte elementy: automatyka parkingowa i szlabany wjazdowe. Budżet/szacunek: Zapytanie ofertowe / PZP (Platforma Zakupowa).", "url": "https://platformazakupowa.pl/transakcja/1385492", "external_platform_url": "https://platformazakupowa.pl/transakcja/1385492", "relevance_score": 70, "created_at": "2026-10-09 14:23:02", "notified_at": null, "is_new": 1}, {"tender_id": "TED-670215-2026", "source": "TED (Dziennik Urzędowy UE)", "threshold_type": "Powyżej progów UE (TED)", "category": "DIRECT_KD_RCP", "scope_tags": "KD", "title": "Polska – System kontroli dostępu – Dostawa, montaż i uruchomienie zdalnego, opartego na technologii NFC dostępu do szaf telekomunikacyjnych Lubelskiej Regionalnej Sieci Szerokopasmowej", "buyer_name": "Województwo Lubelskie - Lubelskie Centrum Innowacji i Technologii", "buyer_type": "Urząd / Samorząd", "city": "Lublin", "province": "", "published_date": "2026-09-29", "deadline": "Sprawdź w ogłoszeniu TED", "cpv_codes": "42961100 51900000 42961100 51900000", "estimated_value_pln": "Powyżej progu UE", "wadium_info": "Sprawdź w dokumentacji TED", "requirements_info": "Postępowanie unijne (JEDZ / kwalifikowany podpis elektroniczny).", "description_snippet": "1. Przedmiotem zamówienia jest dostawa, montaż i uruchomienie zdalnego, opartego na technologii NFC dostępu do szaf telekomunikacyjnych Lubelskiej Regionalnej Sieci Szerokopasmowej. 2. Zdalny dostęp należy zrealizować na szafach produkcji AGMAR typ HB2, WSD3K PLUS z klamką uchylną RS700/710. 3. Wymagany system musi opierać się na technologii NFC oraz obejmować bezbateryjny i bez kablowy system zamykania i otwierania szaf telekomunikacyjnych przy pomocy smartfona, zapewniając jednoczesną kontrolę dostępu osób uprawnionych do korzystania z elektronicznego klucza. 4. Wszystkie elementy zamykające muszą być samowystarczalne energetycznie, nie mogą wymagać użycia baterii/akumulatorów i okablowania, wymagana energia musi być pobierana bezprzewodo", "ai_summary": "🎯 Bezpośrednie zamówienie na systemy BioSys (KD / RCP / Bramki / Szlabany). Zakres obejmuje: KD dla jednostki typu Urząd / Samorząd. Budżet/szacunek: Powyżej progu unijnego (TED).", "url": "https://ted.europa.eu/pl/notice/-/detail/670215-2026", "external_platform_url": "https://ted.europa.eu/pl/notice/-/detail/670215-2026", "relevance_score": 75, "created_at": "2026-10-01 17:33:27", "notified_at": null, "is_new": 0}, {"tender_id": "PZ-1378987", "source": "Platforma Zakupowa (<130k i PZP)", "threshold_type": "Poniżej 130 tys. zł / Platforma", "category": "DIRECT_KD_RCP", "scope_tags": "KD", "title": "385/2026/PN/DZP „Modernizacja systemu kontroli dostępu w uniwersyteckim domu rotacyjnym przy ul. Dybowskiego 7 w Olsztynie”", "buyer_name": "Uniwersytet Warmińsko-Mazurski w Olsztynie", "buyer_type": "Uczelnia / Szkoła", "city": "Olsztyn", "province": "", "published_date": "2026-09-22 13:47:00", "deadline": "2026-10-26 11:00", "cpv_codes": "Postępowanie na platformazakupowa.pl", "estimated_value_pln": "Wg zapytania ofertowego / SWZ", "wadium_info": "Sprawdź na karcie postępowania", "requirements_info": "Pełna dokumentacja techniczna (OPZ/SWZ) do pobrania bez logowania na karcie transakcji.", "description_snippet": "Postępowanie ID 1378987: 385/2026/PN/DZP „Modernizacja systemu kontroli dostępu w uniwersyteckim domu rotacyjnym przy ul. Dybowskiego 7 w Olsztynie” — Zamawiający: Uniwersytet Warmińsko-Mazurski w Olsztynie.", "ai_summary": "🎯 Bezpośrednie zamówienie na systemy BioSys (KD / RCP / Bramki / Szlabany). Zakres obejmuje: KD dla jednostki typu Uczelnia / Szkoła. Budżet/szacunek: Zapytanie ofertowe / PZP (Platforma Zakupowa).", "url": "https://platformazakupowa.pl/transakcja/1378987", "external_platform_url": "https://platformazakupowa.pl/transakcja/1378987", "relevance_score": 70, "created_at": "2026-09-30 12:28:50", "notified_at": null, "is_new": 0}, {"tender_id": "BZP-2026/BZP 00459781/01", "source": "e-Zamówienia (BZP)", "threshold_type": "Powyżej 130 tys. zł (PZP)", "category": "DIRECT_KD_RCP", "scope_tags": "KD, Szlabany/RFID", "title": "„Rozbudowa systemu kontroli dostępu do bramy wjazdowej, furtki wejściowej oraz montaż szlabanu na parking Urzędu Dzielnicy Praga-Północ przy ul. Kłopotowskiego 15 w Warszawie”.", "buyer_name": "Miasto Stołeczne Warszawa Dzielnica Praga-Północ", "buyer_type": "Urząd / Samorząd", "city": "Warszawa", "province": "mazowieckie", "published_date": "2026-09-28", "deadline": "2026-10-14 07:00", "cpv_codes": "45314000-1, 45314300-4, 42961100-1, 45311100-1, 45310000-3", "estimated_value_pln": "Brak w ogłoszeniu", "wadium_info": "Nie wymagane / brak danych", "requirements_info": "Standardowe warunki z SWZ", "description_snippet": "Przedmiotem zamówienia jest rozbudowa systemu kontroli dostępu do bramy wjazdowej, furtki wejściowej oraz montaż szlabanu na parking Urzędu Dzielnicy Praga-Północ przy ul. Kłopotowskiego 15 w Warszawie w ramach zadania pn.: „Przebudowa instalacji ppoż. w budynku Urzędu wraz z podłączeniem do systemu kontroli dostępu”. Wejście do budynku od strony parkingu powinno zostać wyposażone w wideo-domofony oraz czytniki kart dostępu po obu stronach przejść. System umożliwi połączenie osoby dzwoniącej ze stanowiskiem recepcyjnym na parterze, które będzie doposażone w monitor użytkownika. Ze stanowiska możliwe będzie otwarcie drzwi wejściowych od strony parkingu, bramy wjazdowej i furtki wejściowej (za pośrednictwem systemu kontroli dostępu). System wideo-domofonowy (obsługa „pieszego”) składać się b", "ai_summary": "🎯 Bezpośrednie zamówienie na systemy KD / RCP / Zabezpieczenia. Wykryte elementy: czytniki/karty zbliżeniowe (RFID/Mifare), automatyka przejść (szlabany/bramki/kołowroty), elementy wykonawcze przejść (zwory/elektrozaczepy).", "url": "https://ezamowienia.gov.pl/mp-client/search/list/ocds-148610-91b8c37a-22ec-4cc2-a326-f64a5d94e727", "external_platform_url": "https://zamowienia.um.warszawa.pl/pn/umw/demand/322282/notice/public/details", "relevance_score": 65, "created_at": "2026-09-30 12:28:50", "notified_at": null, "is_new": 0}];
+
+    function escapeHtml(str) {
+      if (!str) return "";
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+
+    let currentQuickFilter = 'ALL';
+
+    function setQuickFilter(mode, btn) {
+      document.querySelectorAll('.pill').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentQuickFilter = mode;
+
+      document.getElementById('categoryFilter').value = '';
+      document.getElementById('scopeFilter').value = '';
+      document.getElementById('buyerTypeFilter').value = '';
+      document.getElementById('sourceFilter').value = '';
+
+      if (mode === 'DIRECT') {
+        document.getElementById('categoryFilter').value = 'DIRECT_KD_RCP';
+      } else if (mode === 'RCP') {
+        document.getElementById('scopeFilter').value = 'RCP';
+      } else if (mode === 'KD') {
+        document.getElementById('scopeFilter').value = 'KD';
+      } else if (mode === 'GATES') {
+        document.getElementById('scopeFilter').value = 'Bramki/Kołowroty';
+      } else if (mode === 'HOSPITAL') {
+        document.getElementById('buyerTypeFilter').value = 'Szpital / Medycyna';
+      } else if (mode === 'OFFICE') {
+        document.getElementById('buyerTypeFilter').value = 'Urząd / Samorząd';
+      } else if (mode === 'SUB130') {
+        document.getElementById('sourceFilter').value = 'SUB130';
+      }
+      renderTenders();
+    }
+
+    function toggleDrawer(idx) {
+      const el = document.getElementById('drawer-' + idx);
+      if (el) el.classList.toggle('open');
+    }
+
+    function renderTenders() {
+      const q = document.getElementById('searchInput').value.toLowerCase().trim();
+      const cat = document.getElementById('categoryFilter').value;
+      const scope = document.getElementById('scopeFilter').value;
+      const buyerType = document.getElementById('buyerTypeFilter').value;
+      const source = document.getElementById('sourceFilter').value;
+
+      const filtered = TENDERS.filter(t => {
+        if (currentQuickFilter === 'NEW' && t.is_new !== 1) return false;
+        if (cat && t.category !== cat) return false;
+        if (scope && !(t.scope_tags || '').includes(scope)) return false;
+        if (buyerType && t.buyer_type !== buyerType) return false;
+        if (source === 'SUB130') {
+          if (!(t.source || '').includes('Platforma') && !(t.source || '').includes('Baza')) return false;
+        } else if (source && !(t.source || '').includes(source)) {
+          return false;
+        }
+        if (q) {
+          const hay = [
+            t.title, t.buyer_name, t.city, t.province,
+            t.description_snippet, t.ai_summary, t.requirements_info, t.tender_id
+          ].join(' ').toLowerCase();
+          if (!hay.includes(q)) return false;
+        }
+        return true;
+      });
+
+      document.getElementById('resultsCount').textContent =
+        `Wyświetlanie ${filtered.length} z ${TENDERS.length} postępowań`;
+
+      const container = document.getElementById('tenderList');
+      if (filtered.length === 0) {
+        container.innerHTML = `<div class="tender-card" style="text-align:center;color:var(--muted);padding:40px;">
+          Brak przetargów spełniających wybrane kryteria filtrowania.
+        </div>`;
+        return;
+      }
+
+      container.innerHTML = filtered.map((t, idx) => {
+        const newBadge = (t.is_new === 1)
+          ? `<span class="badge badge-new">🔥 NOWA OFERTA</span>`
+          : ``;
+
+        let catBadge = `<span class="badge badge-sub">🏗️ Inwestycja łączona / Podwykonawstwo</span>`;
+        if (t.category === 'DIRECT_KD_RCP') {
+          catBadge = `<span class="badge badge-direct">🎯 Bezpośrednie KD / RCP</span>`;
+        } else if (t.category === 'CYBER_IT_ACCESS') {
+          catBadge = `<span class="badge badge-cyber">🔐 Cyberbezpieczeństwo IT/OT</span>`;
+        }
+
+        const scopes = (t.scope_tags || '').split(',').map(s => s.trim()).filter(Boolean)
+          .map(s => `<span class="badge badge-scope">${escapeHtml(s)}</span>`).join('');
+
+        const loc = [t.city, t.province].filter(Boolean).join(', ');
+        const extBtn = (t.external_platform_url && t.external_platform_url !== t.url)
+          ? `<a href="${escapeHtml(t.external_platform_url)}" target="_blank" rel="noopener" class="btn btn-primary">⚡ Platforma Zakupowa / Pobierz SWZ</a>`
+          : `<a href="${escapeHtml(t.url)}" target="_blank" rel="noopener" class="btn btn-primary">⚡ Przejdź do postępowania / SWZ</a>`;
+
+        return `
+          <article class="tender-card cat-${escapeHtml(t.category)}">
+            <div class="card-top">
+              <div class="badges">
+                ${newBadge}
+                ${catBadge}
+                ${scopes}
+                <span class="badge badge-buyer">${escapeHtml(t.buyer_type)}</span>
+                <span class="badge badge-source">${escapeHtml(t.source)}</span>
+              </div>
+              <div class="dates-box">
+                <div>📅 Zamieszczono: <strong>${escapeHtml(t.published_date)}</strong></div>
+                <div>⏰ Termin ofert: <span class="deadline-tag">${escapeHtml(t.deadline)}</span></div>
+                <div style="font-size:0.75rem; color:#64748b; margin-top:3px;">👁️ Pierwsze wykrycie: ${escapeHtml((t.created_at || '').substring(0, 10))}</div>
+              </div>
+            </div>
+
+            <h2 class="tender-title">${escapeHtml(t.title)}</h2>
+            <div class="buyer-line">
+              🏢 Zamawiający: <strong>${escapeHtml(t.buyer_name)}</strong>
+              ${loc ? ` • 📍 ${escapeHtml(loc)}` : ''}
+              • <span style="color:var(--muted);font-size:0.8rem;">${escapeHtml(t.tender_id)}</span>
+            </div>
+
+            <div class="ai-box">
+              💡 <strong>Analiza:</strong> ${escapeHtml(t.ai_summary)}
+            </div>
+
+            <div class="meta-grid">
+              <div class="meta-item">💰 <strong>Szacunkowa wartość:</strong> ${escapeHtml(t.estimated_value_pln)}</div>
+              <div class="meta-item">🛡️ <strong>Wadium:</strong> ${escapeHtml(t.wadium_info)}</div>
+              <div class="meta-item">📋 <strong>Kody CPV:</strong> ${escapeHtml(t.cpv_codes)}</div>
+            </div>
+
+            <div class="card-footer">
+              <button class="details-toggle" onclick="toggleDrawer(${idx})">
+                🔎 Pokaż wyciąg z OPZ / SWZ oraz wymagania podmiotowe ▾
+              </button>
+              <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                <a href="${escapeHtml(t.url)}" target="_blank" rel="noopener" class="btn btn-outline">📄 Ogłoszenie źródłowe</a>
+                ${extBtn}
+              </div>
+            </div>
+
+            <div id="drawer-${idx}" class="details-drawer"><strong>📌 Wymagania (Sekcja 5.4 / Warunki udziału):</strong>
+${escapeHtml(t.requirements_info || 'Brak szczególnych wymogów w ogłoszeniu — sprawdź SWZ.')}
+
+<strong>📝 Krótki opis przedmiotu zamówienia (Sekcja 4.2.2 / Wyciąg z OPZ):</strong>
+${escapeHtml(t.description_snippet || 'Brak opisu tekstowego — szczegóły w załącznikach SWZ.')}</div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    function toggleLearningDetails() {
+      const drawer = document.getElementById('learningDetailsDrawer');
+      const text = document.getElementById('learningToggleText');
+      if (drawer.classList.contains('open')) {
+        drawer.classList.remove('open');
+        text.innerText = 'Pokaż szczegóły wiedzy ▼';
+      } else {
+        drawer.classList.add('open');
+        text.innerText = 'Zwiń szczegóły ▲';
+      }
+    }
+
+    renderTenders();
+  </script>
+</body>
+</html>
